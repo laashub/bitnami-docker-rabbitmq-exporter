@@ -1,0 +1,6 @@
+version: '2'
+services:
+  rabbitmq-exporter:
+    image: bitnami/rabbitmq-exporter:0
+    ports:
+      - 9090:9090

@@ -1,0 +1,38 @@
+## This is test deployment for Kubernetes platforms.
+## This is _not_ intended to be used in production.
+##
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: test-rabbitmq-exporter
+  name: test-rabbitmq-exporter
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: test-rabbitmq-exporter
+  template:
+    metadata:
+      labels:
+        app: test-rabbitmq-exporter
+    spec:
+      containers:
+      - image: bitnami/rabbitmq-exporter
+        name: rabbitmq-exporter
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: test-rabbitmq-exporter
+  name: test-rabbitmq-exporter
+spec:
+  ports:
+  - port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: test-rabbitmq-exporter
+  sessionAffinity: None
+  type: ClusterIP

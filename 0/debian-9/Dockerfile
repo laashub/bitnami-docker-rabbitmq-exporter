@@ -1,0 +1,19 @@
+FROM bitnami/minideb:stretch
+LABEL maintainer "Bitnami <containers@bitnami.com>"
+
+# Install required system packages and dependencies
+RUN install_packages ca-certificates wget
+RUN wget -nc -P /tmp/bitnami/pkg/cache/ https://downloads.bitnami.com/files/stacksmith/rabbitmq-exporter-0.29.0-0-linux-amd64-debian-9.tar.gz && \
+    echo "67463686d9406b1650b0ff811a614ed442cfc6af64c32766f85778e0b3142ffe  /tmp/bitnami/pkg/cache/rabbitmq-exporter-0.29.0-0-linux-amd64-debian-9.tar.gz" | sha256sum -c - && \
+    tar -zxf /tmp/bitnami/pkg/cache/rabbitmq-exporter-0.29.0-0-linux-amd64-debian-9.tar.gz -P --transform 's|^[^/]*/files|/opt/bitnami|' --wildcards '*/files' && \
+    rm -rf /tmp/bitnami/pkg/cache/rabbitmq-exporter-0.29.0-0-linux-amd64-debian-9.tar.gz
+
+ENV BITNAMI_APP_NAME="rabbitmq-exporter" \
+    BITNAMI_IMAGE_VERSION="0.29.0-debian-9-r0" \
+    PATH="/opt/bitnami/rabbitmq-exporter/bin:$PATH"
+
+EXPOSE 9090
+
+WORKDIR /opt/bitnami/rabbitmq-exporter
+USER 1001
+ENTRYPOINT [ "rabbitmq_exporter" ]
