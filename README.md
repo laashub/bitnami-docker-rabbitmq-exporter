@@ -1,3 +1,7 @@
+# DEPRECATION NOTICE
+
+This image has been deprecated, and will no longer be maintained and updated. Please consider using [bitnami/rabbitmq](https://github.com/bitnami/bitnami-docker-rabbitmq) instead.
+
 # What is RabbitMQ Exporter?
 
 > Prometheus exporter for RabbitMQ metrics.
